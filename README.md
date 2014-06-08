@@ -45,12 +45,12 @@ How to I add the stream status tag in a blog post or page?
 Just add the following HTML code anywhere you want one : `<span class="twitch-status-tag"></span>`
 
 Screenshots
------------
+===========
 
 1. The stream status tag when online and offline.
 
 Changelog
----------
+=========
 
 ### 1.0
 

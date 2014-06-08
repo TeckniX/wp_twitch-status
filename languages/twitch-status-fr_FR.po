@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Twitch Status v1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-08 13:02+0100\n"
-"PO-Revision-Date: 2014-06-08 13:03+0100\n"
+"POT-Creation-Date: 2014-06-08 20:08+0100\n"
+"PO-Revision-Date: 2014-06-08 20:11+0100\n"
 "Last-Translator: Nicolas Bernier <nicolas.bernier@synagila.com>\n"
 "Language-Team: Synagila <nicolas.bernier@synagila.com>\n"
 "Language: fr_FR\n"
@@ -23,19 +23,31 @@ msgstr ""
 msgid "Main settings"
 msgstr "Paramètres généraux"
 
-#: includes/twitch-status-options.php:41
+#: includes/twitch-status-options.php:38
+msgid "Online tag settings"
+msgstr "Paramètres du tag"
+
+#: includes/twitch-status-options.php:39
+msgid "Widget settings"
+msgstr "Paramètres du widget"
+
+#: includes/twitch-status-options.php:43
 msgid "Channel name"
 msgstr "Nom de la chaîne"
 
-#: includes/twitch-status-options.php:45
+#: includes/twitch-status-options.php:47
 msgid "jQuery selectors"
 msgstr "Sélecteurs jQuery"
 
-#: includes/twitch-status-options.php:56
+#: includes/twitch-status-options.php:51
+msgid "Widget target"
+msgstr "Cible du widget"
+
+#: includes/twitch-status-options.php:62
 msgid "Your Twitch channel name"
 msgstr "Le nom de votre chaîne Twitch"
 
-#: includes/twitch-status-options.php:61
+#: includes/twitch-status-options.php:67
 msgid ""
 "<a href=\"http://api.jquery.com/category/selectors/\" target=\"_blank"
 "\">jQuery selectors</a> matching the places you want to insert the stream "
@@ -47,10 +59,61 @@ msgstr ""
 "d'état du stream.<br />Entrez un sélecteur par ligne. Vous pouvez en ajouter "
 "autant que vous le voulez."
 
-#: twitch-status.php:58
+#: includes/twitch-status-options.php:87
+msgid "URL:"
+msgstr "URL :"
+
+#: includes/twitch-status-options.php:91
+msgid "Your Twitch.tv channel"
+msgstr "Votre chaîne Twitch"
+
+#: includes/twitch-status-options.php:94
+msgid "Blog page:"
+msgstr "Page du blog :"
+
+#: includes/twitch-status-options.php:103
+msgid "The target of the widget's \"play\" button."
+msgstr "La cible du bouton \"lecture\" du widget."
+
+#: includes/twitch-status-options.php:106
+msgid "Open in a new tab"
+msgstr "Ouvrir dans un nouvel onglet"
+
+#: includes/twitch-status-options.php:108
+msgid ""
+"Check this if you want the link to be opened in a new tab instead of the "
+"current one."
+msgstr "Cochez cette case pour ouvrir la cible dans un nouvel onglet."
+
+#: includes/twitch-status-widget.php:13
+msgid "Twitch status widget"
+msgstr "Widget Twitch status"
+
+#: includes/twitch-status-widget.php:14
+msgid "Shows a preview of your Twitch.tv stream."
+msgstr "Affiche un aperçu de votre stream Twitch.tv."
+
+#: includes/twitch-status-widget.php:49
+msgid "Offline"
+msgstr "Hors-ligne"
+
+#: includes/twitch-status-widget.php:67
+msgid "Twitch"
+msgstr "Twitch"
+
+#: includes/twitch-status-widget.php:71
+msgid "Title:"
+msgstr "Titre :"
+
+#: twitch-status.php:78
 msgid "LIVE!"
 msgstr "LIVE !"
 
-#: twitch-status.php:59
+#: twitch-status.php:79
 msgid "offline"
 msgstr "hors-ligne"
+
+#: twitch-status.php:121
+#, php-format
+msgid "%s playing %s"
+msgstr "%s joue à %s"

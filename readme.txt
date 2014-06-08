@@ -40,8 +40,13 @@ Just add the following HTML code anywhere you want one : `<span class="twitch-st
 == Screenshots ==
 
 1. The stream status tag when online and offline.
+2. The stream status widget when online.
+3. The stream status widget when offline.
 
 == Changelog ==
+
+= 1.1 =
+* Added stream status widget
 
 = 1.0 =
 * First release

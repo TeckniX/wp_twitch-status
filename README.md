@@ -52,6 +52,9 @@ Screenshots
 Changelog
 =========
 
+### 1.1
+* Added stream status widget
+
 ### 1.0
 
 * First release

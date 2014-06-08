@@ -3,7 +3,7 @@
 Plugin Name: Twitch Status
 Plugin URI: http://www.synagila.com
 Description: Insert Twitch.tv online status in WordPress
-Version: 1.0
+Version: 1.1
 Author: Nicolas Bernier
 Author URI: http://www.synagila.com
 License: GPL v2
@@ -24,10 +24,11 @@ License: GPL v2
 */
 
 define('TWITCH_STATUS_BASE', plugin_dir_path(__FILE__));
-define('TWITCH_STATUS_VER', '1.0');
+define('TWITCH_STATUS_VER', '1.1');
 define('TWITCH_STATUS_URL', plugins_url('/' . basename(dirname(__FILE__))));
 
 include_once(TWITCH_STATUS_BASE . 'includes/twitch-status-options.php');
+include_once(TWITCH_STATUS_BASE . 'includes/twitch-status-widget.php');
 
 /**
  * Enqueue scripts and CSS
@@ -48,17 +49,44 @@ add_action('wp_enqueue_scripts', 'twitch_status_enqueue_scripts');
  */
 function twitch_status_js_vars()
 {
+	// Get click target URL
+	$target = get_option('twitch_status_target');
+
+	switch (@$target['target'])
+	{
+		case 'url':
+			$targetUrl = trim($target['url']);
+			break;
+
+		case 'channel':
+			$targetUrl = 'http://www.twitch.tv/' . get_option('twitch_status_channel');
+			break;
+
+		case 'page':
+			$targetUrl = get_permalink($target['page']);
+			break;
+
+		default:
+			$targetUrl = null;
+	}
+
+	$jsConfig = array(
+		'ajaxurl'    => admin_url('admin-ajax.php'),
+		'channel'    => get_option('twitch_status_channel'),
+		'selectors'  => explode("\n", get_option('twitch_status_selector')),
+		'buttonHTML' => array(
+			'online' => __('LIVE!', 'twitch-status'),
+			'offline' => __('offline', 'twitch-status'),
+		),
+		'target' => array(
+			'url' => $targetUrl,
+			'newtab' => !empty($target['newtab'])
+		),
+	);
+
 	?>
 		<script type="text/javascript">
-			var twitchStatus = {
-				ajaxurl   : <?php echo json_encode(admin_url('admin-ajax.php')); ?>,
-				channel   : <?php echo json_encode(get_option('twitch_status_channel')); ?>,
-				selectors : <?php echo json_encode(explode("\n", get_option('twitch_status_selector'))); ?>,
-				buttonHTML : {
-					online : <?php echo json_encode(__('LIVE!', 'twitch-status')); ?>,
-					offline : <?php echo json_encode(__('offline', 'twitch-status')); ?>,
-				}
-			}
+			var twitchStatus = <?php echo json_encode($jsConfig); ?>
 		</script>
     <link rel="stylesheet" href="<?php echo TWITCH_STATUS_URL ?>/font/fontello/css/fontello.css">
     <link rel="stylesheet" href="<?php echo TWITCH_STATUS_URL ?>/font/fontello/css/animation.css"><!--[if IE 7]><link rel="stylesheet" href="<?php echo TWITCH_STATUS_URL ?>/font/fontello/css/fontello-ie7.css"><![endif]-->
@@ -67,27 +95,38 @@ function twitch_status_js_vars()
 add_action('wp_head','twitch_status_js_vars');
 
 /**
- * Retrieve channel data from Twitch.tv
+ * Retrieve channel and stream data from Twitch.tv
  * Called by AJAXaction
  * @return void
  */
 function twitch_status_get_channel_status_ajax()
 {
-	$data = @json_decode(@file_get_contents('https://api.twitch.tv/kraken/streams/' . $_REQUEST['channel']), true);
-
 	header('Content-type: application/json; charset=utf-8');
 
-	if (!empty($data))
-	{
-		if (!empty($data['error']))
-			$data['twitch_status'] = 'error';
-		else
-			$data['twitch_status'] = empty($data['stream'])?'offline':'online';
+	$data = array();
 
-		echo json_encode($data);
+	$channelData = @json_decode(@file_get_contents('https://api.twitch.tv/kraken/channels/' . $_REQUEST['channel']), true);
+	$streamData  = @json_decode(@file_get_contents('https://api.twitch.tv/kraken/streams/'  . $_REQUEST['channel']), true);
+
+	if (!empty($channelData) && !empty($streamData))
+	{
+		if (!empty($channelData['error']) || !empty($streamData['error']))
+			$data['status'] = 'error';
+		else
+		{
+			$data['status']  = empty($streamData['stream'])?'offline':'online';
+			$data['channel'] = $channelData;
+			$data['stream']  = $streamData['stream'];
+
+			$data['playingHTML'] = sprintf(__("%s playing %s", 'twitch-status'),
+			                               '<a href="http://www.twitch.tv/' . urlencode($channelData['name']) . '/profile" target="_blank">' . htmlspecialchars($channelData['display_name']) . '</a>',
+			                               '<a href="http://www.twitch.tv/directory/game/' . str_replace('+', ' ', urlencode($channelData['game'])) . '" target="_blank">' . htmlspecialchars($channelData['game']) . '</a>');
+		}
 	}
 	else
-		echo json_encode(array('twitch_status' => 'error'));
+		$data['status'] = 'error';
+
+	echo json_encode($data);
 
 	die();
 }

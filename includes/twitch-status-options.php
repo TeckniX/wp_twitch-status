@@ -34,7 +34,9 @@ function twitch_status_options_page()
  */
 function twitch_status_admin_init()
 {
-	add_settings_section('twitch_status_main', __('Main settings', 'twitch-status'), 'twitch_status_section_text', 'twitch_status');
+	add_settings_section('twitch_status_main', __('Main settings', 'twitch-status'), null, 'twitch_status');
+	add_settings_section('twitch_status_tag', __('Online tag settings', 'twitch-status'), null, 'twitch_status');
+	add_settings_section('twitch_status_widget', __('Widget settings', 'twitch-status'), null, 'twitch_status');
 
 	// Channel name
 	register_setting('twitch_status_options', 'twitch_status_channel');
@@ -42,14 +44,13 @@ function twitch_status_admin_init()
 
 	// jQuery selector
 	register_setting('twitch_status_options', 'twitch_status_selector', 'twitch_status_selector_validate');
-	add_settings_field('twitch_status_selector', __('jQuery selectors', 'twitch-status'), 'twitch_status_selector_edit', 'twitch_status', 'twitch_status_main');
+	add_settings_field('twitch_status_selector', __('jQuery selectors', 'twitch-status'), 'twitch_status_selector_edit', 'twitch_status', 'twitch_status_tag');
+
+	// Link target
+	register_setting('twitch_status_options', 'twitch_status_target' /*, 'twitch_status_target_validate'*/);
+	add_settings_field('twitch_status_target', __('Widget target', 'twitch-status'), 'twitch_status_target_edit', 'twitch_status', 'twitch_status_widget');
 }
 add_action('admin_init', 'twitch_status_admin_init');
-
-function twitch_status_section_text()
-{
-	echo '<p></p>';
-}
 
 function twitch_status_channel_edit()
 {
@@ -71,4 +72,33 @@ function twitch_status_selector_validate($input)
 			$filtered[]= trim($row);
 
 	return implode("\n", $filtered);
+}
+
+function twitch_status_target_edit()
+{
+	$target = get_option('twitch_status_target');
+
+	echo '<input type="radio" name="twitch_status_target[target]" id="twitch_status_target_url" value="url"' . ((@$target['target'] == 'url')?' checked="checked"':'') . '>' .
+	     '<label for="twitch_status_target_url">' . __('URL:', 'twitch-status') . '</label>' .
+	     '<input type="text" name="twitch_status_target[url]" value="' . htmlspecialchars(@$target['url']) . '"><br />';
+
+	echo '<input type="radio" name="twitch_status_target[target]" id="twitch_status_target_channel" value="channel"' . ((@$target['target'] == 'channel')?' checked="checked"':'') . '>' .
+	     '<label for="twitch_status_target_channel">' . __('Your Twitch.tv channel', 'twitch-status') . '</label><br />';
+
+	echo '<input type="radio" name="twitch_status_target[target]" id="twitch_status_target_page" value="page"' . ((@$target['target'] == 'page')?' checked="checked"':'') . '>' .
+	     '<label for="twitch_status_target_page">' . __('Blog page:', 'twitch-status') . '</label>';
+
+	echo '<select name="twitch_status_target[page]" id="twitch_status_target">';
+
+	foreach(get_pages() as $aPage)
+		echo '<option value="' . $aPage->ID . '"' . ((@$target['page'] == $aPage->ID)?' selected':'') . '>' . htmlspecialchars($aPage->post_title) . '</a>';
+
+	echo '</select>';
+
+	echo '<p class="description">' . __("The target of the widget's \"play\" button.", 'twitch-status') . '</p>';
+
+	echo '<input type="checkbox" name="twitch_status_target[newtab]" id="twitch_status_target_newtab" value="newtab"' . ((@$target['newtab'])?' checked="checked"':'') . '>' .
+	     '<label for="twitch_status_target_newtab">' . __('Open in a new tab', 'twitch-status') . '</label>';
+
+	echo '<p class="description">' . __("Check this if you want the link to be opened in a new tab instead of the current one.", 'twitch-status') . '</p>';
 }

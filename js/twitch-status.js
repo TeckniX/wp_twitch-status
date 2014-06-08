@@ -71,7 +71,7 @@ function twitchStatusRefreshWidget()
 		if (typeof twitchStatusData.channel != 'undefined')
 			jQuery('.twitch-offline-image').html('<img src="' + twitchStatusData.channel.video_banner + '">');
 		else
-			jQuery('.twitch-offline-image').css({width: w + 'px', height: h + 'px', backgroundColor: '#00FF00'});
+			jQuery('.twitch-offline-image').css({width: w + 'px', height: h + 'px'});
 
 		jQuery('.twitch-offline-caption').css({lineHeight: h + 'px', width: w + 'px', height: h + 'px', marginTop: -h + 'px'});
 

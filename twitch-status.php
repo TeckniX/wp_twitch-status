@@ -77,10 +77,38 @@ function twitch_status_get_channel_status_ajax()
 {
 	header('Content-type: application/json; charset=utf-8');
 
-	$data = array();
+	// Fetch stream and channel information from Twitch
+	$now = time();
 
-	$channelData = @json_decode(@file_get_contents('https://api.twitch.tv/kraken/channels/' . $_REQUEST['channel']), true);
-	$streamData  = @json_decode(@file_get_contents('https://api.twitch.tv/kraken/streams/'  . $_REQUEST['channel']), true);
+	$channelName = preg_replace('/[^0-9a-zA-Z_-]/', '', get_option('twitch_status_channel'));
+	$channelFilename = TWITCH_STATUS_BASE . 'cache/' . $channelName . '-channel.json';
+	$streamFilename  = TWITCH_STATUS_BASE . 'cache/' . $channelName . '-stream.json';
+
+	// Update channel information from cache
+	if ($now - @filemtime($channelFilename) >= 120)
+	{
+		$rawChannelData = @file_get_contents('https://api.twitch.tv/kraken/channels/' . $_REQUEST['channel']);
+
+		if (!empty($rawChannelData))
+			file_put_contents($channelFilename, $rawChannelData);
+	}
+	else
+		$rawChannelData = @file_get_contents($channelFilename);
+
+	// Update stream status information from cache
+	if ($now - @filemtime($streamFilename) >= 15)
+	{
+		$rawStreamData = @file_get_contents('https://api.twitch.tv/kraken/streams/' . $_REQUEST['channel']);
+
+		if (!empty($rawStreamData))
+			file_put_contents($streamFilename, $rawStreamData);
+	}
+	else
+		$rawStreamData = @file_get_contents($streamFilename);
+
+	$data = array();
+	$channelData = @json_decode($rawChannelData, true);
+	$streamData  = @json_decode($rawStreamData, true);
 
 	if (!empty($channelData) && !empty($streamData))
 	{

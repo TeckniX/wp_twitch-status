@@ -103,7 +103,7 @@ class TwitchStatus_Widget extends WP_Widget
 				<label><?php echo __("\"Play\" button target", 'twitch-status') ?></label><br/>
 				<input type="radio" name="<?php echo $this->get_field_name('target'); ?>" id="<?php echo $this->get_field_id('target_url'); ?>" value="url"<?php echo ((@$instance['target'] == 'url')?' checked="checked"':'') ?>>
 				<label for="<?php echo $this->get_field_id('target_url'); ?>"><?php echo __('URL:', 'twitch-status') ?></label>
-				<input type="text" name="<?php echo $this->get_field_name('url'); ?>" value="<?php echo htmlspecialchars(@$instance['url']) ?>"><br />
+				<input type="text" name="<?php echo $this->get_field_name('url'); ?>" value="<?php echo esc_attr(@$instance['url']) ?>"><br />
 
 				<input type="radio" name="<?php echo $this->get_field_name('target'); ?>" id="<?php echo $this->get_field_id('target_channel'); ?>" value="channel"<?php echo ((@$instance['target'] == 'channel')?' checked="checked"':'') ?>>
 				<label for="<?php echo $this->get_field_id('target_channel'); ?>"><?php echo __('Your Twitch.tv channel', 'twitch-status') ?></label><br />
@@ -115,7 +115,7 @@ class TwitchStatus_Widget extends WP_Widget
 
 				<?php
 				foreach(get_pages() as $aPage)
-					echo '<option value="' . $aPage->ID . '"' . ((@$instance['page'] == $aPage->ID)?' selected':'') . '>' . htmlspecialchars($aPage->post_title) . '</a>';
+					echo '<option value="' . $aPage->ID . '"' . ((@$instance['page'] == $aPage->ID)?' selected':'') . '>' . htmlspecialchars($aPage->post_title) . '</option>';
 				?>
 
 				</select><br />

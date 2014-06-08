@@ -49,7 +49,7 @@ add_action('admin_init', 'twitch_status_admin_init');
 
 function twitch_status_channel_edit()
 {
-	echo '<input id="twitch_status_channel" name="twitch_status_channel" size="40" type="text" value="' . htmlspecialchars(get_option('twitch_status_channel')) . '" /><p class="description">' . __("Your Twitch channel name", 'twitch-status') . '</p>';
+	echo '<input id="twitch_status_channel" name="twitch_status_channel" size="40" type="text" value="' . esc_attr(get_option('twitch_status_channel')) . '" /><p class="description">' . __("Your Twitch channel name", 'twitch-status') . '</p>';
 }
 
 function twitch_status_selector_edit()

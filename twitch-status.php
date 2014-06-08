@@ -1,7 +1,6 @@
 <?php
 /*
 Plugin Name: Twitch Status
-Plugin URI: http://www.synagila.com
 Description: Insert Twitch.tv online status in WordPress
 Version: 1.1
 Author: Nicolas Bernier
@@ -49,27 +48,6 @@ add_action('wp_enqueue_scripts', 'twitch_status_enqueue_scripts');
  */
 function twitch_status_js_vars()
 {
-	// Get click target URL
-	$target = get_option('twitch_status_target');
-
-	switch (@$target['target'])
-	{
-		case 'url':
-			$targetUrl = trim($target['url']);
-			break;
-
-		case 'channel':
-			$targetUrl = 'http://www.twitch.tv/' . get_option('twitch_status_channel');
-			break;
-
-		case 'page':
-			$targetUrl = get_permalink($target['page']);
-			break;
-
-		default:
-			$targetUrl = null;
-	}
-
 	$jsConfig = array(
 		'ajaxurl'    => admin_url('admin-ajax.php'),
 		'channel'    => get_option('twitch_status_channel'),
@@ -77,10 +55,6 @@ function twitch_status_js_vars()
 		'buttonHTML' => array(
 			'online' => __('LIVE!', 'twitch-status'),
 			'offline' => __('offline', 'twitch-status'),
-		),
-		'target' => array(
-			'url' => $targetUrl,
-			'newtab' => !empty($target['newtab'])
 		),
 	);
 

@@ -63,14 +63,6 @@ function twitchStatusRefreshWidget()
 		jQuery('.twitch-thumbnail-image').html('<img src="' + twitchStatusData.stream.preview.large + '">');
 		jQuery('.twitch-play-button').css({lineHeight: h + 'px', width: w + 'px', height: h + 'px', marginTop: -h + 'px'});
 
-		if (twitchStatus.target.url !== '')
-		{
-			jQuery('.twitch-thumbnail a').attr('href', twitchStatus.target.url);
-
-			if (twitchStatus.target.newtab)
-				jQuery('.twitch-thumbnail a').attr('target', '_blank');
-		}
-
 		jQuery('.twitch-preview').show();
 		jQuery('.twitch-preview-offline').hide();
 	}

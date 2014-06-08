@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Twitch Status v1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-08 20:08+0100\n"
-"PO-Revision-Date: 2014-06-08 20:11+0100\n"
+"POT-Creation-Date: 2014-06-08 20:51+0100\n"
+"PO-Revision-Date: 2014-06-08 20:51+0100\n"
 "Last-Translator: Nicolas Bernier <nicolas.bernier@synagila.com>\n"
 "Language-Team: Synagila <nicolas.bernier@synagila.com>\n"
 "Language: fr_FR\n"
@@ -27,27 +27,19 @@ msgstr "Paramètres généraux"
 msgid "Online tag settings"
 msgstr "Paramètres du tag"
 
-#: includes/twitch-status-options.php:39
-msgid "Widget settings"
-msgstr "Paramètres du widget"
-
-#: includes/twitch-status-options.php:43
+#: includes/twitch-status-options.php:42
 msgid "Channel name"
 msgstr "Nom de la chaîne"
 
-#: includes/twitch-status-options.php:47
+#: includes/twitch-status-options.php:46
 msgid "jQuery selectors"
 msgstr "Sélecteurs jQuery"
 
-#: includes/twitch-status-options.php:51
-msgid "Widget target"
-msgstr "Cible du widget"
-
-#: includes/twitch-status-options.php:62
+#: includes/twitch-status-options.php:52
 msgid "Your Twitch channel name"
 msgstr "Le nom de votre chaîne Twitch"
 
-#: includes/twitch-status-options.php:67
+#: includes/twitch-status-options.php:57
 msgid ""
 "<a href=\"http://api.jquery.com/category/selectors/\" target=\"_blank"
 "\">jQuery selectors</a> matching the places you want to insert the stream "
@@ -59,32 +51,6 @@ msgstr ""
 "d'état du stream.<br />Entrez un sélecteur par ligne. Vous pouvez en ajouter "
 "autant que vous le voulez."
 
-#: includes/twitch-status-options.php:87
-msgid "URL:"
-msgstr "URL :"
-
-#: includes/twitch-status-options.php:91
-msgid "Your Twitch.tv channel"
-msgstr "Votre chaîne Twitch"
-
-#: includes/twitch-status-options.php:94
-msgid "Blog page:"
-msgstr "Page du blog :"
-
-#: includes/twitch-status-options.php:103
-msgid "The target of the widget's \"play\" button."
-msgstr "La cible du bouton \"lecture\" du widget."
-
-#: includes/twitch-status-options.php:106
-msgid "Open in a new tab"
-msgstr "Ouvrir dans un nouvel onglet"
-
-#: includes/twitch-status-options.php:108
-msgid ""
-"Check this if you want the link to be opened in a new tab instead of the "
-"current one."
-msgstr "Cochez cette case pour ouvrir la cible dans un nouvel onglet."
-
 #: includes/twitch-status-widget.php:13
 msgid "Twitch status widget"
 msgstr "Widget Twitch status"
@@ -93,27 +59,61 @@ msgstr "Widget Twitch status"
 msgid "Shows a preview of your Twitch.tv stream."
 msgstr "Affiche un aperçu de votre stream Twitch.tv."
 
-#: includes/twitch-status-widget.php:49
+#: includes/twitch-status-widget.php:77
 msgid "Offline"
 msgstr "Hors-ligne"
 
-#: includes/twitch-status-widget.php:67
+#: includes/twitch-status-widget.php:93
 msgid "Twitch"
 msgstr "Twitch"
 
-#: includes/twitch-status-widget.php:71
+#: includes/twitch-status-widget.php:100
 msgid "Title:"
 msgstr "Titre :"
 
-#: twitch-status.php:78
+#: includes/twitch-status-widget.php:103
+msgid "\"Play\" button target"
+msgstr "Cible du bouton \"Lecture\""
+
+#: includes/twitch-status-widget.php:105
+msgid "URL:"
+msgstr "URL :"
+
+#: includes/twitch-status-widget.php:109
+msgid "Your Twitch.tv channel"
+msgstr "Votre chaîne Twitch"
+
+#: includes/twitch-status-widget.php:112
+msgid "Blog page:"
+msgstr "Page du blog :"
+
+#: includes/twitch-status-widget.php:124
+msgid "Open in a new tab"
+msgstr "Ouvrir dans un nouvel onglet"
+
+#: twitch-status.php:57
 msgid "LIVE!"
 msgstr "LIVE !"
 
-#: twitch-status.php:79
+#: twitch-status.php:58
 msgid "offline"
 msgstr "hors-ligne"
 
-#: twitch-status.php:121
+#: twitch-status.php:96
 #, php-format
 msgid "%s playing %s"
 msgstr "%s joue à %s"
+
+#~ msgid "Widget settings"
+#~ msgstr "Paramètres du widget"
+
+#~ msgid "Widget target"
+#~ msgstr "Cible du widget"
+
+#~ msgid "The target of the widget's \"play\" button."
+#~ msgstr "La cible du bouton \"lecture\" du widget."
+
+#~ msgid ""
+#~ "Check this if you want the link to be opened in a new tab instead of the "
+#~ "current one."
+#~ msgstr "Cochez cette case pour ouvrir la cible dans un nouvel onglet."

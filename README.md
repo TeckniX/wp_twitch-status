@@ -2,18 +2,22 @@ Twitch Status
 =============
 
 * Contributors: nicolas.bernier
-* Tags: Twitch.tv, tag, AJAX, status
+* Tags: Twitch.tv, tag, AJAX, status, widget, thumbnail
 * Requires at least: 3.0.1
 * Tested up to: 3.9.1
 * License: GPLv2 or later
 * License URI: [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Inserts Twitch.tv stream status tags in your blog menus, pages and whatever following jQuery selectors.
+Inserts Twitch.tv stream status widget and tags for your blog menus, pages and whatever following jQuery selectors.
 
 Description
 ===========
 
-Inserts Twitch.tv stream status tags in your blog. The tags just indicate if the stream is live with a blinking red cirle or offline. The tags are updated every 30 seconds.
+Inserts Twitch.tv stream status tags in your blog. The tags just indicate if the stream is live with a blinking red cirle or offline. 
+
+Also implements a simple widget showing the stream status including the thumbnail, title, game name and number of viewers. 
+
+The tags and the widget are updated every 30 seconds.
 
 Installation
 ============
@@ -48,6 +52,8 @@ Screenshots
 ===========
 
 1. The stream status tag when online and offline.
+2. The stream status widget when online.
+3. The stream status widget when offline.
 
 Changelog
 =========

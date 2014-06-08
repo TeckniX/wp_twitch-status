@@ -16,8 +16,7 @@ var twitchStatusData = {};
 function twitchStatusUpdate()
 {
 	var data = {
-		'action': 'get_twitch_channel_status',
-		'channel': twitchStatus.channel
+		'action': 'get_twitch_channel_status'
 	};
 
 	jQuery.post(twitchStatus.ajaxurl, data, function(response, status) {

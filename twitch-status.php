@@ -85,7 +85,7 @@ function twitch_status_get_channel_status_ajax()
 	$streamFilename  = TWITCH_STATUS_BASE . 'cache/' . $channelName . '-stream.json';
 
 	// Update channel information from cache
-	if ($now - @filemtime($channelFilename) >= 120)
+	if ($now - @filemtime($channelFilename) >= 15)
 	{
 		$rawChannelData = @file_get_contents('https://api.twitch.tv/kraken/channels/' . $_REQUEST['channel']);
 

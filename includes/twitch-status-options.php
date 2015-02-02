@@ -39,7 +39,7 @@ function twitch_status_admin_init()
 
 	// Channel name
 	register_setting('twitch_status_options', 'twitch_status_channel');
-	add_settings_field('twitch_status_channel',  __('Channel name', 'twitch-status'),    'twitch_status_channel_edit',  'twitch_status', 'twitch_status_main');
+	add_settings_field('twitch_status_channel',  __('Channel names <br/><small>(separated with comma)</small>', 'twitch-status'),    'twitch_status_channel_edit',  'twitch_status', 'twitch_status_main');
 
 	// jQuery selector
 	register_setting('twitch_status_options', 'twitch_status_selector', 'twitch_status_selector_validate');

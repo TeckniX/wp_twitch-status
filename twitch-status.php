@@ -76,12 +76,31 @@ add_action('wp_head','twitch_status_js_vars');
 function twitch_status_get_channel_status_ajax()
 {
 	header('Content-type: application/json; charset=utf-8');
+	$channelList = get_option('twitch_status_channel');
+	$channels = array_map('trim', explode(',', $channelList));
+	
+	foreach($channels as $channel){
+	  $data[] = getChannelData($channel);
+	}
 
+	echo json_encode($data);
+
+	die();
+}
+add_action( 'wp_ajax_get_twitch_channel_status', 'twitch_status_get_channel_status_ajax' );
+add_action( 'wp_ajax_nopriv_get_twitch_channel_status', 'twitch_status_get_channel_status_ajax' );
+
+/**
+ * Retrieve channel and stream data from Twitch.tv
+ * Called by twitch_status_get_channel_status_ajax
+ * @return Array
+ */
+function getChannelData($channel)
+{
 	// Fetch stream and channel information from Twitch
 	$now = time();
 
-	$channel = get_option('twitch_status_channel');
-	$channelName = preg_replace('/[^0-9a-zA-Z_-]/', '', get_option('twitch_status_channel'));
+	$channelName = preg_replace('/[^0-9a-zA-Z_-]/', '', channel);
 	$channelFilename = TWITCH_STATUS_BASE . 'cache/' . $channelName . '-channel.json';
 	$streamFilename  = TWITCH_STATUS_BASE . 'cache/' . $channelName . '-stream.json';
 
@@ -128,13 +147,9 @@ function twitch_status_get_channel_status_ajax()
 	}
 	else
 		$data['status'] = 'error';
-
-	echo json_encode($data);
-
-	die();
+	
+	return $data;
 }
-add_action( 'wp_ajax_get_twitch_channel_status', 'twitch_status_get_channel_status_ajax' );
-add_action( 'wp_ajax_nopriv_get_twitch_channel_status', 'twitch_status_get_channel_status_ajax' );
 
 /**
  * Initializes localization

@@ -1,23 +1,25 @@
 Twitch Status
 =============
 
-* Contributors: nicolas.bernier
-* Tags: Twitch.tv, tag, AJAX, status, widget, thumbnail
+* Contributors: nicolas.bernier, TeckniX
+* Tags: Twitch.tv, tag, AJAX, status, widget, thumbnail, multi-channel
 * Requires at least: 3.0.1
 * Tested up to: 3.9.1
 * License: GPLv2 or later
 * License URI: [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Inserts Twitch.tv stream status widget and tags for your blog menus, pages and whatever following jQuery selectors.
+Inserts Twitch.tv stream(s) status widget and tags for your blog menus, pages and whatever following jQuery selectors.
 
 Description
 ===========
 
-Inserts Twitch.tv stream status tags in your blog. The tags just indicate if the stream is live with a blinking red cirle or offline. 
+Inserts Twitch.tv stream(s) status tags in your blog. The tags just indicate if the stream is live with a blinking red cirle or offline. 
 
-Also implements a simple widget showing the stream status including the thumbnail, title, game name and number of viewers. 
+Also implements a simple widget showing the stream(s) status including the thumbnail, title, game name and number of viewers. 
 
 The tags and the widget are updated every 30 seconds.
+
+Support for multi-channel was added, allowing you to list multiple channels via the admin tool, by separating them with a comma (,). Further improvements would add a channel specific tag to each widget, allowing for more direct interaction if needed.
 
 Installation
 ============
@@ -30,6 +32,7 @@ Configuration
 
 1. Go to *Settings* / *Twitch status*
 2. Enter your channel name and the jQuery selectors matching the places you want to insert the tags.
+3. Modify the 'cache' folder permissions within the twitch-status directory, allowing apache to write
 
 Frequently Asked Questions
 ==========================
@@ -57,6 +60,9 @@ Screenshots
 
 Changelog
 =========
+
+### 1.2
+* Added multi-stream status widget support
 
 ### 1.1
 * Added stream status widget

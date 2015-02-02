@@ -12,7 +12,6 @@ jQuery(document).ready(function() {
 	window.addEventListener("orientationchange", twitchStatusRefreshWidget, false);
 });
 
-var twitchStatusData = {};
 function twitchStatusUpdate()
 {
 	var data = {
@@ -22,59 +21,60 @@ function twitchStatusUpdate()
 	jQuery.post(twitchStatus.ajaxurl, data, function(response, status) {
 		if (status !== 'success')
 			return;
-
-		twitchStatusData = response;
-
-		var w = jQuery('.twitch-widget').width();
-		var h = jQuery('.twitch-widget').width() / (16/9);
-
-		// Update status button
-		if (twitchStatusData.status === 'online')
-		{
-			jQuery('.twitch-status-tag').removeClass('twitch-offline');
-			jQuery('.twitch-status-tag').addClass('twitch-online');
-			jQuery('.twitch-status-tag').html(twitchStatus.buttonHTML.online);
+		for(var i = 0; i < response.length; i++){
+			var twitchStatusData = response[i];
+	
+			var w = jQuery('.twitch-widget').width();
+			var h = jQuery('.twitch-widget').width() / (16/9);
+	
+			// Update status button
+			if (twitchStatusData.status === 'online')
+			{
+				jQuery('.twitch-status-tag:eq('+twitchIndex+')').removeClass('twitch-offline');
+				jQuery('.twitch-status-tag:eq('+twitchIndex+')').addClass('twitch-online');
+				jQuery('.twitch-status-tag:eq('+twitchIndex+')').html(twitchStatus.buttonHTML.online);
+			}
+			else
+			{
+				jQuery('.twitch-status-tag:eq('+twitchIndex+')').removeClass('twitch-online');
+				jQuery('.twitch-status-tag:eq('+twitchIndex+')').addClass('twitch-offline');
+				jQuery('.twitch-status-tag:eq('+twitchIndex+')').html(twitchStatus.buttonHTML.offline);
+			}
+	
+			twitchStatusRefreshWidget(twitchStatusData, i);
 		}
-		else
-		{
-			jQuery('.twitch-status-tag').removeClass('twitch-online');
-			jQuery('.twitch-status-tag').addClass('twitch-offline');
-			jQuery('.twitch-status-tag').html(twitchStatus.buttonHTML.offline);
-		}
-
-		twitchStatusRefreshWidget();
 	});
 }
 
-function twitchStatusRefreshWidget()
+function twitchStatusRefreshWidget(twitchStatusData, twitchIndex)
 {
-	var w = jQuery('.twitch-widget').width();
-	var h = jQuery('.twitch-widget').width() / (16/9);
+	var w = jQuery('.twitch-widget:eq('+twitchIndex+')').width();
+	var h = jQuery('.twitch-widget:eq('+twitchIndex+')').width() / (16/9);
 
 	if (twitchStatusData.status === 'online')
 	{
-		jQuery('.twitch-channel-topic').html(twitchStatusData.channel.status);
-		jQuery('.twitch-game').html(twitchStatusData.playingHTML);
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-channel-topic').html(twitchStatusData.channel.status);
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-game').html(twitchStatusData.playingHTML);
 
-		jQuery('.twitch-viewers').html(twitchStatusData.stream.viewers);
-		jQuery('.twitch-followers').html(twitchStatusData.channel.followers);
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-viewers').html(twitchStatusData.stream.viewers);
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-followers').html(twitchStatusData.channel.followers);
 
-		jQuery('.twitch-thumbnail-image').html('<img src="' + twitchStatusData.stream.preview.large + '">');
-		jQuery('.twitch-play-button').css({lineHeight: h + 'px', width: w + 'px', height: h + 'px', marginTop: -h + 'px'});
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-thumbnail-image').html('<img src="' + twitchStatusData.stream.preview.large + '">');
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-play-button').css({lineHeight: h + 'px', width: w + 'px', height: h + 'px', marginTop: -h + 'px'});
 
-		jQuery('.twitch-preview').show();
-		jQuery('.twitch-preview-offline').hide();
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-preview').show();
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-preview-offline').hide();
 	}
 	else
 	{
 		if (typeof twitchStatusData.channel != 'undefined')
-			jQuery('.twitch-offline-image').html('<img src="' + twitchStatusData.channel.video_banner + '">');
+			jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-offline-image').html('<img src="' + twitchStatusData.channel.video_banner + '">');
 		else
-			jQuery('.twitch-offline-image').css({width: w + 'px', height: h + 'px'});
+			jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-offline-image').css({width: w + 'px', height: h + 'px'});
 
-		jQuery('.twitch-offline-caption').css({lineHeight: h + 'px', width: w + 'px', height: h + 'px', marginTop: -h + 'px'});
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-offline-caption').css({lineHeight: h + 'px', width: w + 'px', height: h + 'px', marginTop: -h + 'px'});
 
-		jQuery('.twitch-preview').hide();
-		jQuery('.twitch-preview-offline').show();
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-preview').hide();
+		jQuery('.twitch-widget:eq('+twitchIndex+') .twitch-preview-offline').show();
 	}
 }

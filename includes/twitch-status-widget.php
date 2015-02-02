@@ -23,41 +23,46 @@ class TwitchStatus_Widget extends WP_Widget
 	public function widget($args, $instance)
 	{
 		$title = apply_filters('widget_title', $instance['title']);
-
-		// Get click target URL
-		switch (@$instance['target'])
-		{
-			case 'url':
-				$targetUrl = @$instance['url'];
-				break;
-
-			case 'channel':
-				$targetUrl = 'http://www.twitch.tv/' . get_option('twitch_status_channel');
-				break;
-
-			case 'page':
-				$targetUrl = get_permalink(@$instance['page']);
-				break;
-
-			default:
-				$targetUrl = null;
-		}
-
-		if (!empty($targetUrl))
-		{
-			$linkAttr = ' href="' . $targetUrl . '"';
-			if (!empty($instance['newtab']))
-				$linkAttr .= ' target="_blank"';
-		}
-		else
-			$linkAttr = '';
-
+		// Get Channel list
+		$channelList = get_option('twitch_status_channel');
+		
+		// Explode and trim channel names
+		$channels = array_map('trim', explode(',', $channelList));
+		
 		echo $args['before_widget'];
 
 		if (!empty($title))
 			echo $args['before_title'] . $title . $args['after_title'];
-
-		?>
+		foreach($channels as $channel){
+			// Get click target URL
+			switch (@$instance['target'])
+			{
+				case 'url':
+					$targetUrl = @$instance['url'];
+					break;
+	
+				case 'channel':
+					$targetUrl = 'http://www.twitch.tv/' . get_option('twitch_status_channel');
+					break;
+	
+				case 'page':
+					$targetUrl = get_permalink(@$instance['page']);
+					break;
+	
+				default:
+					$targetUrl = null;
+			}
+		
+			if (!empty($targetUrl))
+			{
+				$linkAttr = ' href="' . $targetUrl . '"';
+				if (!empty($instance['newtab']))
+  					$linkAttr .= ' target="_blank"';
+				}
+			else {
+				$linkAttr = '';
+			}
+			?>
 			<div class="twitch-widget">
 				<div class="twitch-preview" style="display: none">
 					<div class="twitch-channel-topic"></div>
@@ -78,7 +83,8 @@ class TwitchStatus_Widget extends WP_Widget
 					</div>
 				</div>
 			</div>
-		<?php
+			<?php
+		}
 
 		echo $args['after_widget'];
 	}

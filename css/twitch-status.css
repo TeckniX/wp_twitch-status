@@ -3,7 +3,8 @@ span.twitch-status-tag {
 	text-decoration: none;
 }
 .twitch-widget {
-  margin-bottom: 20px;
+  	margin-bottom: 20px;
+  	overflow: hidden;
 }
 .twitch-thumbnail-image, .twitch-offline-image {
 	overflow: hidden;

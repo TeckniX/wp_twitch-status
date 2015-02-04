@@ -100,7 +100,7 @@ function getChannelData($channel)
 	// Fetch stream and channel information from Twitch
 	$now = time();
 
-	$channelName = preg_replace('/[^0-9a-zA-Z_-]/', '', channel);
+	$channelName = preg_replace('/[^0-9a-zA-Z_-]/', '', $channel);
 	$channelFilename = TWITCH_STATUS_BASE . 'cache/' . $channelName . '-channel.json';
 	$streamFilename  = TWITCH_STATUS_BASE . 'cache/' . $channelName . '-stream.json';
 

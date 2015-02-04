@@ -23,6 +23,7 @@ function twitchStatusUpdate()
 			return;
 		for(var i = 0; i < response.length; i++){
 			var twitchStatusData = response[i];
+			var twitchIndex = i;
 	
 			var w = jQuery('.twitch-widget').width();
 			var h = jQuery('.twitch-widget').width() / (16/9);
